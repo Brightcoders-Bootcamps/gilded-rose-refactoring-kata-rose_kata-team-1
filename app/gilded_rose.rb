@@ -1,13 +1,19 @@
+require 'delegate'
+
 # gilden rose logic class
-class GildedRose
-  
-  def initialize(items)
-    @items = items
+class ItemWrapper < SimpleDelegator 
+  def update
+    age 
+    update_quality
+  end
+
+  def age
+    self.sell_in -= 1 if name != "Sulfuras, hand of ragnaros"
   end
   
   def update_quality()
-    @items.each do |item|
-      update_item(item)
+    if name != "Aged Brie" and mame != "Backstage passes to a TAFKAL80ETC concert"
+      if name != "Sulfuras, hand of ragnaros"
     end
   end
 
