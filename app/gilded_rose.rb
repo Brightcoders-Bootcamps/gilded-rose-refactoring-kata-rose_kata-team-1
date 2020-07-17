@@ -1,66 +1,46 @@
-require 'delegate'
+class GildedRose
 
-# gilden rose logic class
-class ItemWrapper < SimpleDelegator 
-  def update
-    age 
-    update_quality
-  end
-
-  def age
-    self.sell_in -= 1 if name != "Sulfuras, hand of ragnaros"
+  def initialize(items)
+    @items = items
   end
   
   def update_quality()
-    if name != "Aged Brie" and mame != "Backstage passes to a TAFKAL80ETC concert"
-      if name != "Sulfuras, hand of ragnaros"
+    @items.each do |item|
+      if item.name == "Aged Brie"
+        aged_brie_method(item)
+      elsif item.name == "Backstage passes to a TAFKAL80ETC concert"
+        backstage_passes_method(item)
+      elsif item.name == "Sulfuras, Hand of Ragnaros"
+        sulfuras_method(item)
+      end
     end
   end
 
-  def  update_item(item)
-    if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
-      if item.quality > 0
-        if item.name != "Sulfuras, Hand of Ragnaros"
-          item.quality = item.quality - 1
-        end
-      end
-    else
-      if item.quality < 50
-        item.quality = item.quality + 1
-        if item.name == "Backstage passes to a TAFKAL80ETC concert"
-          if item.sell_in < 11
-            if item.quality < 50
-              item.quality = item.quality + 1
-            end
-          end
-          if item.sell_in < 6
-            if item.quality < 50
-              item.quality = item.quality + 1
-            end
-          end
-        end
-      end
-    end
-    if item.name != "Sulfuras, Hand of Ragnaros"
-      item.sell_in = item.sell_in - 1
-    end
-    if item.sell_in < 0
-      if item.name != "Aged Brie"
-        if item.name != "Backstage passes to a TAFKAL80ETC concert"
-          if item.quality > 0
-            if item.name != "Sulfuras, Hand of Ragnaros"
-              item.quality = item.quality - 1
-            end
-          end
-        else
-          item.quality = item.quality - item.quality
-        end
-      else
+  def aged_brie_method(item)
+    if item.quality < 50
+      item.quality = item.quality + 1
+      if item.name != "Sulfuras, Hand of Ragnaros"
+        item.sell_in = item.sell_in - 1
         if item.quality < 50
           item.quality = item.quality + 1
         end
       end
     end
+  end
+
+  def backstage_passes_method(item)
+    if item.quality < 50
+      item.quality = item.quality + 1
+      if item.sell_in < 11
+        if item.quality < 50
+          item.quality = item.quality + 1
+        end
+      end
+    end
+  end
+
+  def sulfuras_method(item)
+    item.quality = item.quality - item.quality
   end
 end
   
