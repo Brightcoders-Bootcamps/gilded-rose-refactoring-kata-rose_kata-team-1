@@ -36,6 +36,7 @@ class GildedRose
 
   def backstage_quality_improvement(item)
     return unless item.quality < 50
+
     item.quality = Quality.increase(item.quality, item.sell_in)
   end
 
