@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative '../app/gilded_rose.rb'
-require_relative '../app/item.rb'
-require_relative '../app/quality.rb'
+require_relative '../gilded_rose.rb'
+require_relative '../item.rb'
+require_relative '../quality.rb'
 require 'test/unit'
 
 # Test cases
